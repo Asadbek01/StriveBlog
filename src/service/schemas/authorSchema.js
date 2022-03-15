@@ -10,7 +10,6 @@ const AuthorModel = new Schema (
         email:{ type: String, required: [true, "Please enter insert your email"]},
         password:{ type: String,required: [true, "Please enter insert your password"]},
         role:{ type: String, enum: ["user", "admin"], default: "user"}
-
     },
     {
         timestamps: true
@@ -35,7 +34,7 @@ next()
      return authorProperty
    
  }
- AuthorModel.statics.checkCredential = async function (email, passwordPL ) {
+ AuthorModel.statics.checkCredentials = async function (email, passwordPL ) {
 
   const author = await this.findOne({ email }) 
 
@@ -50,4 +49,4 @@ next()
     return null
   }
 }
-export default model("Authors", AuthorModel)
+export default model("Author", AuthorModel)

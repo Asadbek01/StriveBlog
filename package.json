@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Asadbek01/StriveBlog#readme",
   "dependencies": {
+    "atob": "^2.1.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",

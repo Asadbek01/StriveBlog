@@ -12,7 +12,7 @@ const BlogModel = new Schema(
       value: { type: Number, required: true},
       unit: {type: String, required: true }        
   },
-  authors:[{type:Schema.Types.ObjectId, ref:"Authors"}]
+  authors:[{type:Schema.Types.ObjectId, ref:"Author"}]
 },
 
   {

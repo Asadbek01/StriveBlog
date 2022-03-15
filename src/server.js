@@ -9,15 +9,15 @@ import { badRequestHandler, forbiddenError, genericErrorHandler, notFoundHandler
 const server = express();
 const port = process.env.PORT;
 
-/************************************** Enpoints **************************/
-
-server.use("/author", AuthorRouter);
-server.use("/blogs", BlogsRouter);
-
 /************************************** Middleware **************************/
 server.use(express.json());
 server.use(cors());
 
+
+/************************************** Enpoints **************************/
+
+server.use("/author", AuthorRouter);
+server.use("/blogs", BlogsRouter);
 
 /************************************** ErrorHandlers **************************/
 
