@@ -2,18 +2,33 @@ import express from "express";
 import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
-import UserRouter from "./service/user/index.js";
 import BlogsRouter from "./service/blog/index.js";
+import AuthorRouter from "./service/author/index.js";
+import { badRequestHandler, forbiddenError, genericErrorHandler, notFoundHandler, unauthorizedError } from "./errorHandlers.js";
 
 const server = express();
 const port = process.env.PORT;
 
+/************************************** Enpoints **************************/
+
+server.use("/author", AuthorRouter);
+server.use("/blogs", BlogsRouter);
+
+/************************************** Middleware **************************/
 server.use(express.json());
 server.use(cors());
 
-server.use("/users", UserRouter);
-server.use("/blogs", BlogsRouter);
 
+/************************************** ErrorHandlers **************************/
+
+server.use(notFoundHandler)
+server.use(badRequestHandler)
+server.use(forbiddenError)
+server.use(genericErrorHandler)
+server.use(unauthorizedError)
+
+
+    /************************************** Connection **************************/
 
 mongoose.connect(process.env.MONGO_CONNECTION);
 mongoose.connection.on("connected", () => {
