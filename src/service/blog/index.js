@@ -39,7 +39,7 @@ BlogsRouter.put("/:id", async (req, res, next) => {
     }
 })
 // 5
-BlogsRouter.get("/:id", async (req, res, next) => {
+BlogsRouter.delete("/:id", async (req, res, next) => {
     try {
         const blog = await BlogModel.findByIdAndDelete(req.params.id)
         res.send(blog)

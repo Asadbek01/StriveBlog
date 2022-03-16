@@ -9,7 +9,8 @@ const AuthorModel = new Schema (
         name:{ type: String, required: [true, "Please enter insert your name"],},
         email:{ type: String, required: [true, "Please enter insert your email"]},
         password:{ type: String,required: [true, "Please enter insert your password"]},
-        role:{ type: String, enum: ["user", "admin"], default: "user"}
+        role:{ type: String, enum: ["user", "admin"], default: "user"},
+        refreshToken: {type: String}
     },
     {
         timestamps: true
