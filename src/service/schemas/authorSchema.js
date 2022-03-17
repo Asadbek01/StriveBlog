@@ -8,9 +8,10 @@ const AuthorModel = new Schema (
     {
         name:{ type: String, required: [true, "Please enter insert your name"],},
         email:{ type: String, required: [true, "Please enter insert your email"]},
-        password:{ type: String,required: [true, "Please enter insert your password"]},
+        password:{ type: String},
         role:{ type: String, enum: ["user", "admin"], default: "user"},
-        refreshToken: {type: String}
+        refreshToken: {type: String},
+        googleId: {type: String}
     },
     {
         timestamps: true
@@ -30,7 +31,8 @@ next()
  AuthorModel.methods.toJson = function(){
    const authorDoucumnet = this 
    const authorProperty = authorDoucumnet.toObject()
-     delete authorProperty.password
+     delete authorProperty.password,
+     delete authorProperty.refreshToken
 
      return authorProperty
    

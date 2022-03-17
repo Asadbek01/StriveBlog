@@ -5,9 +5,10 @@ import { JwtMiddleware } from "../auth/JwtMiddleware.js"
 import { JWTAUTHANTICATION, verifyRefreshTokenAndGenerateNewToken } from "../auth/jwttool.js"
 import { MainAuthMiddleware } from "../auth/mainAuthMiddleware.js"
 import  AuthorModel  from "../schemas/authorSchema.js"
+import passport from "passport"
 const AuthorRouter = express.Router()
 // 1
-AuthorRouter.post("/",  async (req, res, next) => {
+AuthorRouter.post("/register",  async (req, res, next) => {
     try {
         console.log(req.body)
         const author = new AuthorModel(req.body)
@@ -42,13 +43,30 @@ AuthorRouter.put("/me", MainAuthMiddleware, async (req, res, next) => {
         req.author.role = "admin"
         req.author.name = "Asadbek"
       req.author.email = "asadbek.azamjonov@gmail.com"
-     await req.author.save() 
+      await req.author.save() 
       res.send()
     } catch (error) {
       next(error)
     }
-  })
+})
 
+AuthorRouter.get("/googleLogin",passport.authenticate("google", { scope: ["email", "profile"] })) 
+
+AuthorRouter.get(
+  "/googleRedirect",
+  passport.authenticate("google"),
+  async (req, res, next) => {
+    try {
+      console.log("TOKENS: ", req.authors.token)
+      
+      res.redirect(
+        `${process.env.FE_URL}?accessToken=${req.authors.token.accessToken}&refreshToken=${req.author.token.refreshToken}`
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+)
 AuthorRouter.get("/:id", MainAuthMiddleware, adminOnlyMiddleware, async (req, res, next) => {
     try {
         const author = await AuthorModel.findById(req.params.id)
@@ -100,6 +118,7 @@ AuthorRouter.post("/login",  async (req, res, next) => {
       next(error)
     }
   })
+
 
 
 
