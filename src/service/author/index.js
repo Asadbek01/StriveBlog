@@ -57,10 +57,10 @@ AuthorRouter.get(
   passport.authenticate("google"),
   async (req, res, next) => {
     try {
-      console.log("TOKENS: ", req.authors.token)
+      console.log("TOKENS: ", req.user.token)
       
       res.redirect(
-        `${process.env.FE_URL}?accessToken=${req.authors.token.accessToken}&refreshToken=${req.author.token.refreshToken}`
+        `${process.env.FE_URL}?accessToken=${req.user.token.accessToken}&refreshToken=${req.user.token.refreshToken}`
       )
     } catch (error) {
       next(error)

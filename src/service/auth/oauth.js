@@ -1,4 +1,4 @@
-import Passport from "passport"
+import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
 import AuthorModel from "../schemas/authorSchema.js";
 import { JWTAUTHANTICATION } from "../auth/jwttool.js";
@@ -39,7 +39,7 @@ async (accessToken, refreshToken, profile, passportNext) => {
 )
 
 
-Passport.serializeUser((data, passportNext) => {
+passport.serializeUser((data, passportNext) => {
   passportNext(null, data)
 })
 
